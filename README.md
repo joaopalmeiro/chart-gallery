@@ -6,6 +6,11 @@
 - [Image Gallery with Next.js, Supabase, and Tailwind CSS](https://github.com/leerob/image-gallery-supabase-tailwind-nextjs).
 - [How do I throw the bucket uploaded image URL to my table field "img_url"?](https://github.com/supabase/supabase/discussions/5196).
 
+## Development
+
+- `npm install`.
+- `npm run dev`.
+
 ## Notes
 
 - `npx create-next-app --example with-tailwindcss chart-gallery`.
@@ -13,3 +18,4 @@
 - `npm i @supabase/supabase-js`.
 - `npm install lucide-react`.
 - `npm install daisyui`.
+- [react-use-keypress](https://www.npmjs.com/package/react-use-keypress) package.
