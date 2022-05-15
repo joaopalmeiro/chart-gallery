@@ -6,5 +6,9 @@ module.exports = {
   theme: {
     extend: {},
   },
-  plugins: [],
+  plugins: [require('daisyui')],
+  // https://daisyui.com/docs/themes/#-2
+  daisyui: {
+    themes: false,
+  },
 }

@@ -10,4 +10,7 @@ module.exports = {
       },
     ]
   },
+  images: {
+    domains: ['faqkcwjlhdjecqllvtrg.supabase.co'],
+  },
 }

@@ -11,3 +11,5 @@
 - `npx create-next-app --example with-tailwindcss chart-gallery`.
 - [prettier-plugin-tailwindcss](https://github.com/tailwindlabs/prettier-plugin-tailwindcss) repo.
 - `npm i @supabase/supabase-js`.
+- `npm install lucide-react`.
+- `npm install daisyui`.
