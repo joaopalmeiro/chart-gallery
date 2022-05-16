@@ -5,7 +5,7 @@ import Head from 'next/head'
 import Image from 'next/image'
 import Link from 'next/link'
 import { useRouter } from 'next/router'
-import { useState } from 'react'
+import React, { KeyboardEvent, useState } from 'react'
 import useKeypress from 'react-use-keypress'
 
 type Chart = {
@@ -27,7 +27,8 @@ const supabaseAdmin = createClient(
 export const getStaticPaths: GetStaticPaths = async () => {
   const { data } = await supabaseAdmin.from<Chart>('charts').select('id')
 
-  const paths = data.map(({ id }) => ({
+  // https://www.typescriptlang.org/docs/handbook/2/everyday-types.html#non-null-assertion-operator-postfix-
+  const paths = data!.map(({ id }) => ({
     params: {
       slug: id.toString(),
     },
@@ -43,6 +44,9 @@ export const getStaticPaths: GetStaticPaths = async () => {
 // https://github.com/timlrx/tailwind-nextjs-starter-blog/blob/master/pages/blog/%5B...slug%5D.js#L21
 // https://supabase.com/docs/reference/javascript/select#querying-with-count-option
 export const getStaticProps: GetStaticProps = async ({ params }) => {
+  // https://www.typescriptlang.org/docs/handbook/2/everyday-types.html#type-assertions
+  const slug = params!.slug as string
+
   const { count } = await supabaseAdmin
     .from<Chart>('charts')
     .select('id', { count: 'exact', head: true })
@@ -50,21 +54,32 @@ export const getStaticProps: GetStaticProps = async ({ params }) => {
   const { data: datum } = await supabaseAdmin
     .from<Chart>('charts')
     .select('*')
-    .eq('id', params.slug)
+    .eq('id', slug)
     .single()
 
   // https://supabase.com/docs/reference/javascript/storage-from-getpublicurl
   const { publicURL } = supabaseAdmin.storage
     .from('charts')
-    .getPublicUrl(datum.img_name)
+    .getPublicUrl(datum!.img_name)
 
-  const prev = parseInt(params.slug, 10) - 1
-  const next = parseInt(params.slug, 10) + 1
+  let prevURL
+  let nextURL
+  let percentage
 
-  const prevURL = `/${prev === 0 ? count : prev}`
-  const nextURL = `/${next > count ? 1 : next}`
+  if (count === null) {
+    prevURL = '/'
+    nextURL = '/'
 
-  const percentage = `${(parseInt(params.slug, 10) / count) * 100}%`
+    percentage = '0%'
+  } else {
+    const prev = parseInt(slug, 10) - 1
+    const next = parseInt(slug, 10) + 1
+
+    prevURL = `/${prev === 0 ? count : prev}`
+    nextURL = `/${next > count ? 1 : next}`
+
+    percentage = `${(parseInt(slug, 10) / count) * 100}%`
+  }
 
   return {
     props: {
@@ -125,7 +140,9 @@ const Chart = ({
   const router = useRouter()
 
   // https://www.npmjs.com/package/react-use-keypress
-  useKeypress(['ArrowLeft', 'ArrowRight'], (e) => {
+  // https://www.newline.co/@bespoyasov/how-to-handle-keyboard-input-events-in-react-typescript-application--9b21764e
+  // https://reactjs.org/docs/events.html#keyboard-events
+  useKeypress(['ArrowLeft', 'ArrowRight'], (e: KeyboardEvent) => {
     if (e.key === 'ArrowLeft') {
       router.push(prevURL)
     } else {
