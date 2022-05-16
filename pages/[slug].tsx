@@ -8,14 +8,6 @@ import { useRouter } from 'next/router'
 import React, { KeyboardEvent, useState } from 'react'
 import useKeypress from 'react-use-keypress'
 
-type Chart = {
-  id: number
-  img_name: string
-  name: string
-  repo: string
-  tweet: string
-}
-
 const supabaseAdmin = createClient(
   process.env.NEXT_PUBLIC_SUPABASE_URL || '',
   process.env.SUPABASE_SERVICE_ROLE_KEY || ''
