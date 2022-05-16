@@ -147,7 +147,7 @@ const Chart = ({
       {/* https://css-tricks.com/things-ive-learned-css-grid-layout/#aa-use-vmin-for-an-equal-sized-box-layout */}
       {/* https://www.instagram.com/p/CdcuaQ4K2C_/ */}
       {/* 64 + 64 / 2 = 96 */}
-      <main className="grid h-full grid-cols-[96px_1fr_96px] grid-rows-[6px_1fr] gap-0 overflow-hidden">
+      <main className="grid h-full grid-cols-[96px_1fr_96px] grid-rows-[6px_64px_1fr_64px] gap-0 overflow-hidden md:grid-rows-[6px_1fr]">
         {/* https://tailwindcss.com/docs/content-configuration#class-detection-in-depth */}
         {/* https://tailwindcss.com/docs/content-configuration#dynamic-class-names */}
         <div
@@ -156,7 +156,7 @@ const Chart = ({
             width: percentage,
           }}
         />
-        <div className="flex flex-col items-center justify-center gap-2">
+        <div className="col-span-3 flex flex-row items-center justify-center gap-2 md:col-auto md:flex-col">
           {/* https://daisyui.com/components/button/ */}
           <a
             href={datum.repo}
@@ -175,11 +175,11 @@ const Chart = ({
         </div>
         {/* https://tailwindcss.com/docs/padding */}
         {/* p-0, p-16, p-32 */}
-        <div className="p-16">
+        <div className="col-span-3 p-4 md:col-auto md:p-16">
           <BlurImage url={publicURL} />
         </div>
         {/* justify-end, gap-px */}
-        <div className="flex flex-col items-center justify-center gap-2">
+        <div className="col-span-3 flex flex-row items-center justify-center gap-2 md:col-auto md:flex-col">
           {/* https://nextjs.org/docs/api-reference/next/link */}
           {/* https://nextjs.org/docs/api-reference/next/link#if-the-child-is-a-custom-component-that-wraps-an-a-tag */}
           <Link href={prevURL}>
